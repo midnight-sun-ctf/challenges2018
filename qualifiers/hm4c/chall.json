@@ -1,0 +1,13 @@
+
+ {
+    "name":"hm4c",
+    "flag":"midnight{Th1$_1S_N0t_A_Go0D_HM4C}",
+    "chall_type":"crypto",
+    "points":50,
+    "hint":"Solve bit by bit",
+    "info":"Some n00b implemented a HMAC, I'm sure you can pwn it.",
+    "author":"grocid",
+    "play_url":"nc crypto.midnightsunctf.se 31337 | nc 34.249.127.77 31337",
+    "download_url":"hm4c.tar.gz",
+    "bonus":3
+},

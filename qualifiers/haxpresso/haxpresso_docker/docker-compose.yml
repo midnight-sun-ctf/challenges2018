@@ -1,0 +1,10 @@
+version: '3'
+services:
+  haxpresso:
+    build:
+      context: .
+    working_dir: /home/ctf
+    container_name: haxpresso
+    ports:
+      - "1337:1337"
+    entrypoint: /etc/chall_init.sh

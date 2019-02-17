@@ -1,0 +1,299 @@
+# midnight{vM_15_t00_h4Rd}
+# var decls
+VAR buf_0 0x86
+VAR buf_1 0x38
+VAR buf_2 0x3030399
+VAR buf_3 0x5204
+VAR buf_4 0x41420c42
+VAR buf_5 0x3030399
+VAR buf_6 0xcfe0bd
+VAR buf_7 0x44
+VAR buf_8 0x44
+VAR buf_9 0x3030399
+VAR buf_10 0x67616c66
+VAR buf_11 0x1216
+VAR buf_12 0x184
+VAR buf_13 0xcafeba43
+
+VAR c_w 0x77
+VAR c_m 0x6d
+VAR c_i 0x69
+VAR c_d 0x64
+VAR c_n 0x6e
+VAR c_g 0x67
+VAR c_h 0x68
+VAR c_t 0x74
+VAR c_{ 0x7b
+VAR c_} 0x7d
+VAR c_nl 0x0a
+
+# code
+goto START
+
+# stop loop prevents instruction 
+# couting brute-force
+LBL STOP
+nop
+goto STOP
+
+LBL START
+
+# m
+LBL CHAR0
+getc r0
+movrm r1 c_m
+gotoeq CHAR1 r0 r1
+goto STOP
+
+# i
+LBL CHAR1
+getc r0
+movrm r1 c_i
+gotoeq CHAR2 r0 r1
+goto STOP
+
+# d
+LBL CHAR2
+getc r0
+movrm r1 c_d
+gotoeq CHAR3 r0 r1
+goto STOP
+
+# n
+LBL CHAR3
+getc r0
+movrm r1 c_n
+gotoeq CHAR4 r0 r1
+goto STOP
+
+# i
+LBL CHAR4
+getc r0
+movrm r1 c_i
+gotoeq CHAR5 r0 r1
+goto STOP
+
+# g
+LBL CHAR5
+getc r0
+movrm r1 c_g
+gotoeq CHAR6 r0 r1
+goto STOP
+
+# h  
+LBL CHAR6
+getc r0
+movrm r1 c_h
+gotoeq CHAR7 r0 r1
+goto STOP
+
+# t
+LBL CHAR7
+getc r0
+movrm r1 c_t
+gotoeq CHAR8 r0 r1
+goto STOP
+
+# {
+LBL CHAR8
+getc r0
+movrm r1 c_{
+gotoeq CHAR9 r0 r1
+goto STOP
+
+# v : 
+LBL CHAR9
+getc r0
+# ord('v') ^ 0x22 + 0x32 = 0x86
+VAR v_xor 0x22
+VAR v_add 0x32
+movrm r1 v_xor
+xorrr r0 r1
+movrm r1 v_add
+addrr r0 r1
+movrm r1 buf_0
+gotoeq CHAR10 r0 r1
+goto STOP
+
+# M : 
+LBL CHAR10
+getc r0
+# ord('M') - 0x15 = 0x38
+VAR M_sub 0x15
+movrm r1 M_sub
+subrr r0 r1
+movrm r1 buf_1
+gotoeq CHAR11 r0 r1
+goto STOP
+
+# _ :
+LBL CHAR11
+getc r0
+# ord('_') + 0xffffffa0) ^ 0xfcfcfc66 = 0x3030399
+VAR us_add 0xffffffa0
+VAR us_xor 0xfcfcfc66
+movrm r1 us_add
+addrr r0 r1
+movrm r1 us_xor
+xorrr r0 r1 
+movrm r1 buf_2
+gotoeq CHAR12 r0 r1
+goto STOP
+
+# 1 :
+LBL CHAR12
+getc r0
+# ord('1') ^ 0x5235 = 0x5204
+VAR 1_xor 0x5235
+movrm r1 1_xor
+xorrr r0 r1
+movrm r1 buf_3
+gotoeq CHAR13 r0 r1
+goto STOP
+
+# 5 :
+LBL CHAR13
+getc r0
+# ord('5') + 0x41420c0d = 0x41420c42
+VAR 5_add 0x41420c0d
+movrm r1 5_add
+addrr r0 r1
+movrm r1 buf_4
+gotoeq CHAR14 r0 r1
+goto STOP
+
+# _ :
+LBL CHAR14
+getc r0
+# ord('_') + 0xffffffa0) ^ 0xfcfcfc66 = 0x3030399
+movrm r1 us_add
+addrr r0 r1
+movrm r1 us_xor
+xorrr r0 r1 
+movrm r1 buf_5
+gotoeq CHAR15 r0 r1
+goto STOP
+
+# t :
+LBL CHAR15
+getc r0
+# (ord('t') ^ 0xdeadbeef) + 0x22222222 = 0x100cfe0bd
+VAR t_xor 0xdeadbeef
+VAR t_add 0x22222222
+movrm r1 t_xor
+xorrr r0 r1
+movrm r1 t_add
+addrr r0 r1
+movrm r1 buf_6
+gotoeq CHAR16 r0 r1
+goto STOP
+
+# 0 :
+LBL CHAR16
+getc r0
+# (ord('0') - 0x65) + 0x79 = 0x44
+VAR 0_sub 0x65
+VAR 0_add 0x79
+movrm r1 0_sub
+subrr r0 r1
+movrm r1 0_add
+addrr r0 r1
+movrm r1 buf_7
+gotoeq CHAR17 r0 r1
+goto STOP
+
+# 0 :
+LBL CHAR17
+getc r0
+# (ord('0') - 0x65) + 0x79 = 0x44
+movrm r1 0_sub
+subrr r0 r1
+movrm r1 0_add
+addrr r0 r1
+movrm r1 buf_8
+gotoeq CHAR18 r0 r1
+goto STOP
+
+# _ :
+LBL CHAR18
+getc r0
+# ord('_') + 0xffffffa0) ^ 0xfcfcfc66 = 0x3030399
+movrm r1 us_add
+addrr r0 r1
+movrm r1 us_xor
+xorrr r0 r1 
+movrm r1 buf_9
+gotoeq CHAR19 r0 r1
+goto STOP
+
+# h :
+LBL CHAR19
+getc r0
+# ord('h') ^ 0x67616c0e = 0x67616c66
+VAR h_xor 0x67616c0e
+movrm r1 h_xor
+xorrr r0 r1
+movrm r1 buf_10
+gotoeq CHAR20 r0 r1
+goto STOP
+
+# 4 :
+LBL CHAR20
+getc r0
+# (ord('4') - 0x12) ^ 0x1234 = 0x1216
+VAR 4_sub 0x12
+VAR 4_xor 0x1234
+movrm r1 4_sub
+subrr r0 r1
+movrm r1 4_xor
+xorrr r0 r1
+movrm r1 buf_11
+gotoeq CHAR21 r0 r1
+goto STOP
+
+# R :
+LBL CHAR21
+getc r0
+# ord('R') + 0x55 + 0x66 + 0x77
+VAR R_add1 0x55
+VAR R_add2 0x66
+VAR R_add3 0x77
+movrm r1 R_add1
+addrr r0 r1
+movrm r1 R_add2
+addrr r0 r1
+movrm r1 R_add3
+addrr r0 r1
+movrm r1 buf_12
+gotoeq CHAR22 r0 r1
+goto STOP
+
+# d :
+LBL CHAR22
+getc r0
+# (ord('d') ^ 0xcafebabe) - 0x97 = 0xcafeba43
+VAR d_xor 0xcafebabe
+VAR d_sub 0x97
+movrm r1 d_xor
+xorrr r0 r1
+movrm r1 d_sub
+subrr r0 r1
+movrm r1 buf_13
+gotoeq CHAR23 r0 r1
+goto STOP
+
+LBL CHAR23
+getc r0
+movrm r1 c_}
+gotoeq WIN r1 r0
+goto STOP
+
+LBL WIN
+movrm r0 c_w
+putc r0
+movrm r0 c_i
+putc r0
+movrm r0 c_n
+putc r0
+movrm r0 c_nl
+putc r0

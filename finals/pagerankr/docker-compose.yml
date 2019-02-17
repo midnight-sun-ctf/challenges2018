@@ -1,0 +1,8 @@
+version: '2'
+services:
+    pageranker:
+        build: './git'
+        volumes:
+            - ./git:/git:rw
+        ports:
+            - "3002:3002"

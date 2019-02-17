@@ -1,0 +1,12 @@
+version: '3'
+services:
+  baby_shells:
+    build:
+      context: .
+    working_dir: /home/ctf
+    container_name: baby_shells
+    ports:
+      - "7000:7000"
+      - "7001:7001"
+      - "7002:7002"
+    entrypoint: /etc/chall_init.sh

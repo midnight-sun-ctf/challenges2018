@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" user-scalable="no" content="width=device-width, initial-scale=1">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+      <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.3.0/css/mdb.min.css" />
+      <link rel="stylesheet" href="/img/style.css" />
+  </head>
+  <body><section class="login-info">
+<div class="container">
+  <div class="row main">
+       <div class="dashboard-form-header blue">
+          <h1 class="text-center ">PageRankR</h1>
+        </div>
+    <div class="dashboard-content">
+          <div class="text-center">
+              <button onclick="location='/'" class=" btn btn-blue btn-lg {% if page == 'how_to' %} active{% endif %}">How to</button>
+              <button onclick="location='/pagerankr'" class=" btn btn-blue btn-lg{% if page == 'pagerankr' %} active{% endif %}">PageRankR</button>
+          </div>
+
+          <div class="row" id="container">
+          	<hr>
+          	<h4 class="text-center black-text">Welcome to PageRankR! To check your site's score, simply visit the <a href="/pagerankr">PageRankR</a> page and enter the details.<br><br></h4>
+          	<br>
+          	<p class="text-center black-text">"I have no idea what a PageRankR Rank is, but I sure will talk about it!" - Some SEO person</p>
+          </div>
+      
+      </div>
+    </div></body></html>

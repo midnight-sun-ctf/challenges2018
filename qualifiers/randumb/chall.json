@@ -1,0 +1,12 @@
+ {
+    "name":"randumb",
+    "flag":"midnight{1_Kn3W_tH@t_w4S_a_BaD_1de4}",
+    "chall_type":"pwn",
+    "points":250,
+    "hint":"",
+    "info":"Behind every CTF challenge is a kernel of truth or a nugget of wisdom, or in this case, just kernel of wisdumb.",
+    "author":"b0bb",
+    "play_url":"nc xxx 13579 | nc xxx 13579",
+    "download_url":"",
+    "bonus":3
+},

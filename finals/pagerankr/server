@@ -1,0 +1,16 @@
+Reboot chall:
+	ssh ubuntu@34.245.165.118
+	sudo su
+	screen -rd
+	cd chall
+	docker-compose down
+	docker-compose build && docker-compose up
+Reboot chall and reset:
+	ssh ubuntu@34.245.165.118
+	sudo su
+	screen -rd
+	cd chall
+	docker-compose down
+	docker rm $(docker ps -a -q)
+	docker rmi $(docker images -q)
+	docker-compose build && docker-compose up

@@ -1,0 +1,17 @@
+version: '3'
+services:
+<<<<<<< HEAD
+  ctf_h4mc:
+    build:
+      context: .
+    working_dir: /home/ctf
+    container_name: ctf_h4mc
+=======
+  midnight_hm4c:
+    build:
+      context: .
+    working_dir: /home/ctf
+>>>>>>> 9ad76e587663e9fa07fced2652c83c518b9d542f
+    ports:
+      - "1337:1337"
+    entrypoint: /etc/chall_init.sh

@@ -1,0 +1,13 @@
+
+ {
+    "name":"snurre128",
+    "flag":"620823e005ad9340e1dd7da6deb13028",
+    "chall_type":"crypto",
+    "points":350,
+    "hint":"Take a sip of coffee and it will all be clear.",
+    "info":"Without admitting any mistakes, the Designers are now back with snurre128. Did they fix it? Flag is in format midnight{hex(key)}.",
+    "author":"grocid",
+    "play_url":"",
+    "download_url":"snurre128.tar.gz",
+    "bonus":3
+},

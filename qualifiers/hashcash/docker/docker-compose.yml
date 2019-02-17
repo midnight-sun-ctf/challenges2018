@@ -1,0 +1,10 @@
+version: '3'
+services:
+  hashcash:
+    build:
+      context: .
+    working_dir: /home/ctf
+    container_name: hashcash
+    ports:
+      - "24680:24680"
+    entrypoint: /etc/chall_init.sh

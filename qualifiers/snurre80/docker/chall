@@ -1,0 +1,135 @@
+import os
+import sys
+import signal
+import random
+from hashlib import sha256
+from flag import *
+
+class Snurre80:
+
+    """
+        Snurre80 is a proprietary stream cipher designed for
+        low-power devices, i.e., in Internet of Things contexts.
+        More importantly, it offers an incredibly high security
+        level of 2^80 (who would need more?).
+
+        It has the following structure:
+
+                      +--------+----+------+
+                      |        |    |      |
+                    +---+---+-   -+---+    |
+                    |   |   | ... |   | <--+
+                    +---+---+-   -+---+
+                      |   |
+                     +---------------+
+                     |       f       | --> c
+                     +---------------+
+
+        Snurre80 is resistant to distinguishing attacks, since
+        it uses a non-linear(tm) boolean function f as filtering
+        output function.
+
+        Snurre80 is quantum resistant and blockchain ready. It 
+        is the stream cipher of the future. We charge a reasonble
+        fee of 0.00001 $ / encrypted bit.
+
+                                            -- The Designers
+    """
+
+    def __init__(self, key):
+        self.state = key
+        self.mask = 1284576224436276739441733
+        self.nbits = self.mask.bit_length()-1
+
+    def output(self):
+        var = bin(self.state)[2:].zfill(self.nbits)
+        v = [int(v) for v in var]
+        return v[0] ^ v[1] ^ v[2] ^ v[31] ^ \
+               v[1]&v[2]&v[3] ^ \
+               v[25]&v[31]&v[32]&v[33]&v[34]
+               
+
+    def __str__(self):
+        j = 0
+        poly = []
+        x = self.mask#.zfill(self.nbits)
+        while x > 0:
+            if x & 1:
+                poly = ["x^{}".format(j)] + poly
+            x >>= 1
+            j += 1
+        return " + ".join(poly)
+
+    def keystream(self, n):
+        for _ in xrange(n):
+            self.state = (self.state << 1)
+            xor = self.state >> self.nbits
+            if xor != 0:
+                self.state ^= self.mask
+            yield self.output()
+
+
+def _write(msg):
+    sys.stdout.write(msg + "\n")
+    sys.stdout.flush()
+
+def _read():
+    data = sys.stdin.readline().strip()
+    return data
+
+def proof_of_work():
+    prefix = os.urandom(10).encode('hex')
+    _write("Give me sha256(prefix + suffix)[:2] = \"\\x00\\x00\\x00\"")
+    _write("prefix: {}".format(prefix))
+    _write("suffix: ")
+    try:
+        suffix = _read().strip()
+        _write([prefix+suffix])
+        if sha256(prefix+suffix).digest()[:2] == "\x00\x00":
+            return True
+    except:
+        pass
+    return False
+
+if not proof_of_work():
+    _write("nah, that wasn't the right suffix... :-(")
+    sys.exit()
+
+_write("Snurre80-stream sequence starting...")
+
+ctr = 0
+
+for i in range(30):
+    ctr += 1
+    key = int(os.urandom(10).encode('hex'), 16)
+    cipher = Snurre80(key)
+    L = 37000
+    z = [c for c in cipher.keystream(L)]
+    z2 = [random.choice(["1","0"]) for i in range(L)]
+    assert(len(z) == len(z2))
+    coin = random.choice([True, False])
+    if coin:
+        _write("".join([str(c) for c in z]))
+    else:
+        _write("".join([str(c) for c in z2]))
+    _write("the above is a....")
+    _write("1. Snurre80 stream...")
+    _write("2. random stream...")
+    try:
+        choice = int(_read())
+    except:
+        sys.exit()
+    if choice == 1 and coin:
+            _write("Correct!")
+    elif choice == 2 and not coin:
+            _write("Correct!")
+    else:
+        _write("Nope, bye!")
+        sys.exit()
+
+if ctr > 27: # sort of a safety check so that we don't leak flag by accident
+    _write("Congrats, here is your flag!")
+    _write(FLAG)
+
+_write("Quitting...")
+sys.exit()

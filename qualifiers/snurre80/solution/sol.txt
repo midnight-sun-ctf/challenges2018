@@ -1,0 +1,59 @@
+SUGGESTED SOLUTION:
+------------------
+
+First of all, we note that the boolean output function 
+
+        return v[0] ^ v[1] ^ v[2] ^ v[31] ^ \
+               v[1]&v[2]&v[3] ^ \
+               v[25]&v[31]&v[32]&v[33]&v[34]
+
+is almost linear. We approximate it as
+
+        return v[0] ^ v[1] ^ v[2] ^ v[31]
+
+and leave the rest of the terms as an error source to out observation.
+
+Now, we look at the feedback polynomial.
+
+P(x) = x^80 + x^76 + x^66 + x^64 + x^58 + x^54 + x^50 + x^42 + x^38 + x^34 + x^24 + x^22 + x^18 + x^10 + x^6 + x^2 + x^0
+
+Every power of x is even! This means that we can perform a square root simply by dividing the exponents by two:
+
+P(x) = Q(x)^2
+
+Q(X) = x^40 + x^38 + x^33 + x^32 + x^29 + x^27 + x^25 + x^21 + x^19 + x^17 + x^12 + x^11 + x^9 + x^5 + x^3 + x^1 + x^0
+
+We can now find a low-weight multiple of this polynomial (in contrast to the degree-80 polynomial, which is much
+harder). Here are a few:
+
+    parities = [
+        [17399, 13567,  4098], 
+        [18695, 17227, 15407], 
+        [23961, 12632,  7304], 
+        [26004, 16925, 14176],
+        [32137, 27193, 13288],
+        [22905, 22020, 7301],
+        [16044, 34273, 34213],
+        [15418, 52279, 34769],
+        [33850, 28352, 52008],
+        [8196, 34798, 27134],
+        [8423, 6051, 31347],
+        [50534, 40967, 28239],
+        [851, 17212, 59395],
+        [19534, 7245, 28522],
+        [36256, 52379, 21882],
+        [62070, 11078, 16515],
+        [41194, 57613, 35660]
+    ]
+
+
+Then, we take the found relations and square them. Because
+
+u(x) * Q(x) = W(x) => (W(x))^2 = u(x)^2 * P(x)
+
+So, we solved a simple problem in another domain and transformed it back to the real one.
+
+Given this low-weight relation, we can now add sequence symbols obtaining a much higher bias.
+
+Now, we just need to look at the sequences.
+

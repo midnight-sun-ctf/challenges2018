@@ -1,0 +1,10 @@
+version: '2'
+services:
+    xss_2:
+        build: './git'
+        environment:
+            - NODE_ENV=production
+        volumes:
+            - ./git:/git:rw
+        ports:
+            - "2999:2999"

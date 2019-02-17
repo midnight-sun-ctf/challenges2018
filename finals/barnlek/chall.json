@@ -1,0 +1,10 @@
+		{
+			"name":"BarnLek",
+			"flag":"0x4141414141414141",
+			"category":"pwn",
+			"points":500,
+			"info":"I love security mitigations, they let me code as sloppily as I like.",
+			"author":"b0bb",
+			"play_url":"nc pwn3.midnightsunctf.se 12345 | nc 34.247.227.162 12345",
+			"download_url":"barnlek.tar.gz"
+		}

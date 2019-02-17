@@ -1,0 +1,10 @@
+version: '3'
+services:
+  flitbip:
+    build:
+      context: .
+    working_dir: /home/ctf
+    container_name: flitbip
+    ports:
+      - "11011:11011"
+    entrypoint: /etc/chall_init.sh

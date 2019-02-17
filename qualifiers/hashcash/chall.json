@@ -1,0 +1,12 @@
+ {
+    "name":"hashcash",
+    "flag":"midnight{h@$h_th3_st4ck_f0r_fun_4nd_pr0f1t}",
+    "chall_type":"pwn",
+    "points":150,
+    "hint":"",
+    "info":"Shall we play a game? We need help beta testing our fancy new cryptocurrency themed lottery game. There may just be a bounty in it for you if you can pwn it.",
+    "author":"b0bb",
+    "play_url":"nc xxx 24680 | nc xxx 24680",
+    "download_url":"",
+    "bonus":3
+},

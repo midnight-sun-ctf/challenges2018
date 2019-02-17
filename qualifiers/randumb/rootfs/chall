@@ -1,0 +1,9 @@
+#!/bin/bash
+qemu-system-arm -kernel zImage \
+    -m 32M \
+    -M virt \
+    -nographic \
+    -initrd rootfs.img.gz \
+    -append "root=/dev/ram rw console=ttyAMA0 rdinit=/sbin/init oops=panic panic=1 quiet" \
+    -monitor /dev/null \
+    -initrd rootfs.img.gz 2>/dev/null

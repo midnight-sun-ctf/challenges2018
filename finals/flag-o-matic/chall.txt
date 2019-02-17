@@ -1,0 +1,9 @@
+Type: crypto
+Score: 150
+Author: klondike
+Description: We found a server that gives away a  flag for "free". Cool, isn't it? The only problem is that it uses RSA, but we are sure you'll figure this one out.
+File: poc.py
+Server: ip:1254
+Flag: midnight{Egad! You found out my decryption key! I'm done for :( Oh well, anyways I never cared about them flags so enjoy mine.}
+Name: Flag-o-matic
+Notes: You'll need to run the srv.py file which is a python 3.5 script. It's only special requirement is the cryptography module (pip install cryptography)

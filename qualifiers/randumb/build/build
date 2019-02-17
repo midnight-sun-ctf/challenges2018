@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if [ ! -d "./randumb" ]
+then
+	mkdir "./randumb"
+fi
+
+./build_kernel.sh
+./build_module.sh
+./build_rootfs.sh
+DIST=1 ./build_rootfs.sh

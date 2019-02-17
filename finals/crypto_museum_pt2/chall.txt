@@ -1,0 +1,7 @@
+Type: crypto
+Score: 100
+Author: klondike
+Description: Seems you did well. But now you'll have n²26! keys and some old CBC like thing.
+File: emsg.txt, enc.py
+Flag: midnight{Somebody once asked could I spare some tips for chall}
+Name: Now for a harder crypto

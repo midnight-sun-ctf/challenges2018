@@ -1,0 +1,51 @@
+#!/bin/sh
+
+mount -t devtmpfs none /dev
+mount -t proc none /proc
+mount -t sysfs none /sys
+mount -t tmpfs none /tmp
+
+/sbin/mdev -s
+
+insmod /randumb.ko
+chmod a+r /dev/randumb
+
+chown root.root /root/*
+chmod 440 /root/*
+chmod 700 /root
+
+chown root.root /
+chown root.root /*
+chown root.root /randumb.ko
+chown root.root /home/randumb/.profile
+chown root.root /src/*
+
+chown -R root.root /bin
+chown -R root.root /etc
+chown -R root.root /sbin
+chown -R root.root /usr
+
+HOME=/home/randumb
+ENV=$HOME/.profile; export ENV
+
+echo ''
+echo '                                  Midnight Sun CTF presents...'
+echo ''
+echo '██████╗  █████╗ ███╗   ██╗██████╗ ██╗   ██╗███╗   ███╗██████╗ '
+echo '██╔══██╗██╔══██╗████╗  ██║██╔══██╗██║   ██║████╗ ████║██╔══██╗'
+echo '██████╔╝███████║██╔██╗ ██║██║  ██║██║   ██║██╔████╔██║██████╔╝'
+echo '██╔══██╗██╔══██║██║╚██╗██║██║  ██║██║   ██║██║╚██╔╝██║██╔══██╗'
+echo '██║  ██║██║  ██║██║ ╚████║██████╔╝╚██████╔╝██║ ╚═╝ ██║██████╔╝'
+echo '╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═════╝  ╚═════╝ ╚═╝     ╚═╝╚═════╝ '
+
+setsid cttyhack setuidgid 1000 /bin/sh
+
+echo -ne "\n"
+echo "Game Over."
+
+umount /dev
+umount /proc
+umount /sys
+umount /tmp
+
+poweroff -f

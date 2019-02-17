@@ -1,0 +1,10 @@
+version: '3'
+services:
+  randumb:
+    build:
+      context: .
+    working_dir: /home/ctf
+    container_name: randumb
+    ports:
+      - "13579:13579"
+    entrypoint: /etc/chall_init.sh

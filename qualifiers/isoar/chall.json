@@ -1,0 +1,12 @@
+ {
+    "name":"isoar",
+    "flag":"midnight{Someone_didnt_bother_reading_my_carefully_prepared_memo_on_commonly_used_passwords}",
+    "chall_type":"web",
+    "points":150,
+    "hint":"",
+    "info":"Premium password metering services provided by iSoar. Can you retrieve the administrator's password?",
+    "author":"Steven",
+    "play_url":"http://34.250.229.128:8000",
+    "download_url":"",
+    "bonus":3
+},

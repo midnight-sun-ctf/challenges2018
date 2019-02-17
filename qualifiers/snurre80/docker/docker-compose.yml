@@ -1,0 +1,10 @@
+version: '3'
+services:
+  ctf_snurre80:
+    build:
+      context: .
+    working_dir: /home/ctf
+    container_name: ctf_snurre80
+    ports:
+      - "31337:31337"
+    entrypoint: /etc/chall_init.sh

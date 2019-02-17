@@ -1,0 +1,1 @@
+FLAG = "midnight{ehhh_n0t_3ven_cl0se}"

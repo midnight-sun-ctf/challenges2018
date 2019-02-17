@@ -1,0 +1,13 @@
+
+ {
+    "name":"badchair",
+    "flag":"ehhh_n0t_3ven_cl0se",
+    "chall_type":"crypto",
+    "points":150,
+    "hint":"redacted",
+    "info":"try sitting on it and see if it breaks",
+    "author":"grocid",
+    "play_url":"",
+    "download_url":"badchair.tar.gz",
+    "bonus":3
+},

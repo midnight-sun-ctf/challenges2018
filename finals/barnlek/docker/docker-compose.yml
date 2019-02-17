@@ -1,0 +1,10 @@
+version: '3'
+services:
+  barnlek:
+    build:
+      context: .
+    working_dir: /home/ctf
+    container_name: barnlek
+    ports:
+      - "12345:12345"
+    entrypoint: /etc/chall_init.sh

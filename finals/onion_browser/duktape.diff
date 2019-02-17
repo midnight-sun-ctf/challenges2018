@@ -1,0 +1,55 @@
+diff --git a/duktape/src-input/duk_bi_buffer.c b/duktape_patch/src-input/duk_bi_buffer.c
+index 9b2f6d7..ac78ea2 100644
+--- a/duktape/src-input/duk_bi_buffer.c
++++ b/duktape_patch/src-input/duk_bi_buffer.c
+@@ -1591,6 +1591,24 @@ DUK_INTERNAL duk_ret_t duk_bi_nodejs_buffer_copy(duk_hthread *thr) {
+  *  See test-bi-typedarray-proto-set.js.
+  */
+ 
++#if defined(DUK_USE_BUFFEROBJECT_SUPPORT)
++DUK_INTERNAL duk_ret_t duk_bi_typedarray_midnight(duk_hthread *thr) {
++	duk_hbufobj *h_this;
++	h_this = duk__require_bufobj_this(thr);
++	DUK_ASSERT(h_this != NULL);
++	DUK_ASSERT_HBUFOBJ_VALID(h_this);
++
++	if (h_this->buf == NULL) {
++		DUK_DDD(DUK_DDDPRINT("source neutered, skip copy"));
++		return 0;
++	}
++	h_this->length = 31337;
++	duk_hbuffer * buf = h_this->buf;
++	buf->size = 31337;
++	return 0;
++}
++#endif
++
+ #if defined(DUK_USE_BUFFEROBJECT_SUPPORT)
+ DUK_INTERNAL duk_ret_t duk_bi_typedarray_set(duk_hthread *thr) {
+ 	duk_hbufobj *h_this;
+
+diff --git a/duktape/src-input/builtins.yaml b/duktape_patch/src-input/builtins.yaml
+index d4c4225..0e79be8 100644
+--- a/duktape/src-input/builtins.yaml
++++ b/duktape_patch/src-input/builtins.yaml
+@@ -974,6 +974,7 @@ objects:
+           id: bi_array_constructor
+         attributes: "wc"
+         present_if: DUK_USE_ARRAY_BUILTIN
++     
+       - key: "toString"
+         value:
+           type: function
+@@ -4071,6 +4072,12 @@ objects:
+         typedarray: true
+         es6: true
+         present_if: DUK_USE_BUFFEROBJECT_SUPPORT
++      - key: "midnight"
++        value:
++          type: function
++          native: duk_bi_typedarray_midnight
++          length: 0
++        present_if: DUK_USE_BUFFEROBJECT_SUPPORT
+       - key: "subarray"
+         value:
+           type: function

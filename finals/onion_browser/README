@@ -1,0 +1,16 @@
+Onionbrowser README
+
+Useage:
+	LD_PRELOAD="./libc-2.26.so ./libcurl.so.4.5.0" ./onionbrowser
+
+You might have to add 32bit support to your system
+	dpkg --add-architecture i386
+	apt-get update --fix-missing && apt-get -y upgrade
+	apt-get install -y lib32z1 xinetd
+
+Good to have:
+	Duktape source:
+	https://github.com/svaarala/duktape
+
+Good to know:
+	Check duktape.diff for the patch

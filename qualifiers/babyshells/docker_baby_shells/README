@@ -1,0 +1,6 @@
+Either install docker and ./run.sh
+
+Or simply run the challs such as:
+./chall
+./qemu-arm ./chall-arm
+./qemu-mips ./chall-mips

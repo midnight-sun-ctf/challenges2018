@@ -1,0 +1,16 @@
+version: '2'
+services:
+    xss_protection_injection:
+        build: './git'
+        volumes:
+            - ./git:/git:rw
+        ports:
+            - "31337:31337"
+    breadroller:
+        build: './git2'
+        environment:
+            - NODE_ENV=production
+        volumes:
+            - ./git2:/git2:rw
+        ports:
+            - "2999:2999"

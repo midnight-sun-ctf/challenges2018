@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Whistleblower System</title>
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+    </style>
+    
+    <script>
+        const KEYSTORE_URL = '/key';
+        const DATA_URL = '/data';
+        
+        function buf2hex(buffer) {
+            return Array
+            .prototype
+            .map
+            .call(new Uint8Array(buffer), x => ('00' + x.toString(16)).slice(-2))
+            .join('');
+        }
+        
+        function generateAesKey() {
+            return crypto.subtle.generateKey({
+                'name': 'AES-CBC',
+                'length': 128
+            }, true, ['encrypt'])
+        }
+        
+        function generateRandomBytes(length) {
+            var array = new Uint8Array(length);
+            return crypto.getRandomValues(array);
+        }
+        
+        function generateId() {
+            return buf2hex(generateRandomBytes(16).buffer);
+        }
+        
+        function postData(url, data) {
+            return fetch(url, {
+                body: JSON.stringify(data),
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                mode: 'cors', 
+                redirect: 'follow'
+            });
+        }
+        
+        function exportKeyHex(key) {
+            return crypto.subtle.exportKey('raw', key).then(key => buf2hex(key));
+        }
+        
+        function submitKey(key, id) {
+            return exportKeyHex(key).then(hexkey => {
+                const data = {
+                    key: hexkey,
+                    id: id
+                };
+                
+                return postData(KEYSTORE_URL, data);
+            });
+        }
+        
+        function encryptData(data, key, iv) {
+            return crypto.subtle.encrypt({
+                name: 'AES-CBC',
+                iv: iv
+            }, key, data);
+        }
+        
+        function encryptAndSend(message) {
+            const plaintext = new TextEncoder().encode(message);
+            const keyId = generateId();
+            const iv = generateRandomBytes(16);
+            return generateAesKey().then(key => {
+                const keySubmission = submitKey(key, keyId);
+                const dataEncryption = encryptData(plaintext, key, iv);
+                
+                return Promise.all([keySubmission, dataEncryption]);
+            })
+            .then(values => {
+                ciphertext = values[1];
+                console.log(ciphertext)
+                console.log(iv)
+                const data = {
+                    ciphertext: buf2hex(iv) + buf2hex(ciphertext),
+                    keyid: keyId
+                };
+                return postData(DATA_URL, data);
+            });
+        }
+        
+        function blowWhistle(event) {
+            event.preventDefault();
+            const message = document.getElementById('message').value;
+            encryptAndSend(message).then(_ => {
+                console.log('Submitted data');
+            });
+            return false;
+        }
+        
+    </script>
+</head>
+<body>
+    <div class="container">
+        
+        <div class="row">
+            <div class="col">
+                <h1>Whistleblower</h1>
+                <form onsubmit="return blowWhistle(event)">
+                    <div class="form-group">
+                        <label for="message">Email address</label>
+                        <textarea type="text" class="form-control" id="message" aria-describedby="messageHelp" placeholder="Enter your message"></textarea>
+                        <small id="messageHelp" class="form-text text-muted">Tell us about the things you have discovered. Your message is safe with us.</small>
+                      </div>
+                      <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>

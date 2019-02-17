@@ -1,0 +1,111 @@
+.main{
+    margin-top: 50px;
+}
+
+.main-content {
+/*    background-color:#009edf;*/
+    border: 2px solid #b5b479;
+    margin: 0 auto;
+    max-width: 500px;
+    padding: 20px 40px;
+    color: #ccc;
+    text-shadow: none;
+}
+
+.red-text {
+    color: red;
+}
+.green-text {
+    color: green;
+}
+
+.header {
+    background-color: #b5b479 !important;
+}
+
+.text-black {
+    color: black !important;
+}
+
+.dashboard-content {
+/*    background-color:#009edf;*/
+    border: 2px solid #FBC02D;
+    margin: 0 auto;
+    padding: 20px 40px;
+    color: #ccc;
+    text-shadow: none;
+
+}
+
+a {
+	color: #ff00e7 !important;
+}
+
+select {
+	text-align-last:center;
+}
+
+.hidden {
+    display: 0;
+}
+
+.yellow { 
+	color: #FBC02D !important;
+}
+
+.input-double {
+	width: 49%;
+}
+
+.black {
+	color: #000000 !important;
+    background-color: #FBC02D !important;
+}
+
+.black-text {
+	color: #000000 !important;
+}
+
+.dashboard-form-header{
+    margin: 0 auto;
+    color: #fff;
+    width: 100% ;
+    padding: 20px 0px;
+    border-top-right-radius:10px ;
+    border-top-left-radius:10px 
+}
+
+.frame {
+    filter: grayscale(100%);
+}
+
+.input-group{
+	margin: 20px 0px;
+}
+.input-group-addon {
+    color: #212121 ;
+    font-size: 17px;
+}
+.login-button{
+    margin: 0px auto;
+    max-width: 200px;;
+}
+
+.menu-button{
+    margin: 0px auto;
+    margin-left: 10px;
+    max-width: 200px;
+}
+
+.form-header{
+    max-width: 500px;
+    margin: 0 auto;
+    color: #fff;
+    width: 100% ;
+    padding: 20px 0px;
+    border-top-right-radius:10px ;
+    border-top-left-radius:10px 
+}
+.remember{
+    color: black;
+}

@@ -1,0 +1,10 @@
+		{
+			"name":"FlitBip",
+			"flag":"A_9oLDeN_k3y_C4n_OpEn_4nY_D0Or",
+			"category":"pwn",
+ 			"points":500,
+			"info":"Ladies and gentleman, introducing... rowhammer as a service!",
+			"author":"b0bb",
+			"play_url":"nc pwn3.midnightsunctf.se 11011 | nc 34.247.227.162 11011",
+			"download_url":"flitbip.tar.gz"
+		}

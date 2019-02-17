@@ -1,0 +1,42 @@
+service ctf0
+{
+	disable = no
+	socket_type = stream
+	protocol = tcp
+	wait = no
+	user = ctf0
+	type = UNLISTED	
+	bind = 0.0.0.0
+	port = 7000
+	#server = /usr/sbin/chroot
+	server = /home/ctf0/redir.sh
+}
+
+service ctf1
+{
+	disable = no
+	socket_type = stream
+	protocol = tcp
+	wait = no
+	user = ctf1
+	type = UNLISTED	
+	bind = 0.0.0.0
+	port = 7001
+	#server = /usr/sbin/chroot
+	server = /home/ctf1/redir.sh
+}
+
+service ctf2
+{
+	disable = no
+	socket_type = stream
+	protocol = tcp
+	wait = no
+	user = ctf2
+	type = UNLISTED	
+	bind = 0.0.0.0
+	port = 7002
+	#server = /usr/sbin/chroot
+	server = /home/ctf2/redir.sh
+}
+

@@ -1,0 +1,12 @@
+{
+    "name":"whistleblower",
+    "flag":"midnight{p4dding_padd1ngt0n_th3_0r4cl3}",
+    "chall_type":"crypto",
+    "points":150,
+    "hint":"",
+    "info":"We managed to capture traffic on the operator submitting data to a whistleblower system. Unfortunately, our intern messed up the PCAP. Please help recover the message.",
+    "author":"ZetaTwo",
+    "play_url":"http://web.midnightsunctf.se",
+    "download_url":"TODO: LIKVIDERA capture_corrupted.pcap",
+    "bonus":3
+},

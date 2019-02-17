@@ -1,0 +1,105 @@
+<html>
+  <head>
+    <title>Password meter</title>
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="/static/css/style.css" rel="stylesheet" type="text/css">
+  </head>
+
+  <body>
+    <div ng-app="pwmeterApp">
+	<div class="container-fluid" ng-controller="pwmeterController">
+	    <div class="row">
+		<div class="col-md-3"></div>
+		<div class="col-md-6">
+			<div class="row result">
+				<h1>iSoar &reg; &trade;</h1>
+				<h2>Premium Password Meter</h2>
+				<hr>
+
+				<div ng-if="status=='show'">
+					<h3>Password strength score</h3>
+					<div class="bigtext">{{score}}</div>
+					<hr>
+					<h3>Password analysis</h3>
+					<q>{{analysis}}</q>
+				</div>
+				<div ng-if="status=='idle'">
+					<p class='text-center'><i>Enter a password below for a free premium evaluation</i></p>
+				</div>
+				<div ng-if="status=='waiting'">
+					<span class="glyphicon glyphicon-refresh spinning"></span> Evaluating...
+				</div>
+
+			</div>
+			<div class="row">
+				<div class="input-group">
+				  <input type="text" class="form-control" placeholder="Enter password..." ng-model="pw">
+				  <span class="input-group-btn">
+					<button class="btn btn-primary" type="button" ng-click="sendPassword(pw)">Go!</button>
+				  </span>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-2"></div>
+				<div class='col-md-8'>
+					<h3>About</h3>
+					<p>At iSoar, we provide premium password metering services by cross-validating your password against a list of 1000 publicly known passwords
+					for more realistic results, unlike our competitors who only use synthetic data. No, we at iSoar are confident that real-world passwords should be used
+					in the evaluation. In fact, we believe this so strongly that we have also appended our administrator's password to the list of 1000 publicly known passwords.
+					</p>
+					<p>
+					In our humble opinion, we also believe that alphanumeric passwords are good enough for everyone, and we live by that statement! Party on!
+					</p>
+				</div>
+				<div class="col-md-2"></div>
+			</div>
+	    </div>
+		<div class="col-md-3">
+	    </div>
+	</div>
+
+	<div class='hideme'>
+		<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#loginBox">&pi;</button>
+	</div>
+
+	<div class="modal fade" id="loginBox" tabindex="-1" role="dialog" aria-labelledby="loginBoxLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Admin Login</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+		  <label>Password:</label>
+		  <input type="text" class="form-control" placeholder="Enter password..." ng-model="lpw">
+		  <hr>
+		<div ng-if="loginstatus=='show'">
+			<label>{{loginresult}}</label>
+		</div>
+		<div ng-if="loginstatus=='idle'">
+		</div>
+		<div ng-if="loginstatus=='waiting'">
+			<span class="glyphicon glyphicon-refresh spinning"></span> Verifying...
+		</div>
+      </div>
+      <div class="modal-footer">
+		<button class="btn btn-primary" type="button" ng-click="sendLogin(lpw)">Login</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+    </div>
+
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/angular.min.js"></script>
+    <script src="/static/js/pwmeter.js"></script>
+    <script src="/static/js/sha256.js"></script>
+    <script src="/static/js/app.js"></script>
+  </body>
+</html>
+

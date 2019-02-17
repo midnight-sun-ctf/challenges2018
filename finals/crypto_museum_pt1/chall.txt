@@ -1,0 +1,7 @@
+Type: crypto
+Score: 50
+Author: klondike
+Description: Let's get warmed up. How about a cipher with 26! keys to stretch your muscles?
+File: emsg.txt, enc.py
+Flag: midnight{No matter what you may believe, Rick Astley is still the best meme}
+Name: Warming up your cryptos

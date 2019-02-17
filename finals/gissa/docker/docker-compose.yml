@@ -1,0 +1,10 @@
+version: '3'
+services:
+  gissa:
+    build:
+      context: .
+    working_dir: /home/ctf
+    container_name: gissa
+    ports:
+      - "11101:11101"
+    entrypoint: /etc/chall_init.sh

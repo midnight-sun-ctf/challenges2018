@@ -1,0 +1,13 @@
+
+ {
+    "name":"zilch-konstigheter",
+    "flag":"$tring_c0ncaten4tion_gr3at_1d3a_g3n1us",
+    "chall_type":"crypto",
+    "points":50,
+    "hint":"Solve bit by bit",
+    "info":"No weird stuff.",
+    "author":"grocid",
+    "play_url":"nc crypto.midnightsunctf.se 31337 | nc 34.249.127.77 31337",
+    "download_url":"zilch-konstigheter.tar.gz",
+    "bonus":3
+},

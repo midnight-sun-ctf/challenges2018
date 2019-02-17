@@ -1,0 +1,10 @@
+version: '3'
+services:
+  CTF_NAME:
+    build:
+      context: .
+    working_dir: /home/ctf
+    container_name: CTF_NAME
+    ports:
+      - "CTF_PORT:CTF_PORT"
+    entrypoint: /etc/chall_init.sh

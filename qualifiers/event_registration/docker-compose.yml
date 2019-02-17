@@ -1,0 +1,18 @@
+version: '2'
+services:
+    naughty_mysql:
+        image: mysql:latest
+        environment:
+            - MYSQL_DATABASE=captcha
+            - MYSQL_ROOT_PASSWORD=fegisbabiannyllebakfyllaitrynet
+            - VIRTUAL_HOST=database
+    naughty:
+        build: './app'
+        volumes:
+            - ./app:/app:rw
+        ports:
+            - "80:80"
+        links:
+            - "naughty_mysql:database"
+        depends_on:
+            - naughty_mysql

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" user-scalable="no" content="width=device-width, initial-scale=1">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+      <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.3.0/css/mdb.min.css" />
+      <link rel="stylesheet" href="/img/style.css" />
+  </head>
+  <body><section class="login-info">
+<div class="container">
+  <div class="row main">
+       <div class="dashboard-form-header blue">
+          <h1 class="text-center ">PageRankR</h1>
+        </div>
+    <div class="dashboard-content">
+          <div class="text-center">
+              <button onclick="location='/'" class=" btn btn-blue btn-lg {% if page == 'how_to' %} active{% endif %}">How to</button>
+              <button onclick="location='/pagerankr'" class=" btn btn-blue btn-lg{% if page == 'pagerankr' %} active{% endif %}">PageRankR</button>
+          </div>
+
+          <div class="row" id="container">
+      		<hr>
+      <form action="/pagerankr" method="post">
+  	      		<center>
+  				<div class="input-group input-double">
+  					<span class="input-group-addon"><span class="glyphicon glyphicon-globe" aria-hidden="true"></span></span>
+  					<input autocomplete="off" type="text" class="form-control text-center" name="link" placeholder="https://www.facebook.com/">
+  				</div>
+  				<div class="input-group">
+  					<input type="submit" value="Score it!" name="add" class="btn btn-danger btn-lg btn-block login-button"/>
+  				</div>
+
+            {% if og is defined %}
+            <div class="main-content">
+              {% if 'image' in og %}<img style="border-radius: 25%; width: 30px; height: 30px" src="{{og['image']}}">{% endif %}
+                <p class="black-text">PageRankR for {{og['site_name']}}: {{og['score']}}</p>
+            </div>
+            {% endif %}
+
+            {% if error is defined %}
+                  <div class="form-group">
+                    <p class="alert-danger text-center">{{error}}</p>
+                  </div>
+            {% endif %}
+            {% if success is defined %}
+                  <div class="form-group">
+                    <p class="alert-success text-center">{{success|safe}}</p>
+                  </div>
+            {% endif %}
+  				</center>
+			</form>
+          </div>
+      
+      </div>
+    </div></body> <!-- Protected by state of the art Anti Wirus System --> </html>

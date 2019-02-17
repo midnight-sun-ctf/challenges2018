@@ -1,0 +1,10 @@
+version: '3'
+services:
+  glitch:
+    build:
+      context: .
+    working_dir: /home/ctf
+    container_name: glitch
+    ports:
+      - "11111:11111"
+    entrypoint: /etc/chall_init.sh

@@ -1,0 +1,14 @@
+{
+  "name": "git",
+  "version": "1.0.0",
+  "description": "",
+  "main": "FITTA.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "sleep": "^5.1.1"
+  }
+}
