@@ -12,7 +12,7 @@
     "express": "^4.16.3",
     "express-rate-limit": "^2.11.0",
     "express-session": "^1.15.6",
-    "puppeteer": "^1.4.0",
+    "puppeteer": "^1.13.0",
     "session-file-store": "^1.2.0"
   }
 }
